@@ -8,11 +8,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{50FE5822-F4B0-4E0A-8A12-CB4C9605D4A0}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2.2-Expose-Web-Api", "2.2-Expose-Web-Api\2.2-Expose-Web-Api.csproj", "{91F383D0-59FB-4A3B-B1F3-29154C1D642A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Case.WeatherFilterApi", "Case.WeatherFitlerApi\Case.WeatherFilterApi.csproj", "{4A9C653C-D5FD-4B36-9A3E-D1FBB1B048B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Case.WeatherFilterApi", "Case.WeatherFitlerApi\Case.WeatherFilterApi.csproj", "{4A9C653C-D5FD-4B36-9A3E-D1FBB1B048B6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
