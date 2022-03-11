@@ -2,41 +2,36 @@
 
 public class WeatherData
 {
-    public DateOnly Date { get; set; }
+    public DateTime ApplicableDate { get; set; }
 
-    public int Precipation { get; set; }
+    public bool IsCurrentWeather => DateOnly.FromDateTime(ApplicableDate) == DateOnly.FromDateTime(DateTime.Now);
+
+    // Data fields chosen based on this: https://easybeinggreen.com.au/solar-panel-efficiency/
 
     public double? Temperature { get; set; }
 
-    public Conditions Conditions { get; set; }
+    public Icon Conditions { get; set; }
 
-    public TimeOnly SunRise { get; set; }
+    public DateTime SunRise { get; set; }
 
-    public TimeOnly SunSet { get; set; }
+    public DateTime SunSet { get; set; }
+
+    public int? CloudCover
+        => Conditions switch
+        {
+            Icon.cloudy => 90,
+            Icon.partlycloudyday | Icon.partlycloudynight => 20,
+            Icon.clearday | Icon.clearnight => 20,
+            _ => null
+        };
 
     public static WeatherData MapFromCurrentConditions(Currentconditions currentconditions)
-    {
-        var precipationString = JsonConvert.SerializeObject(currentconditions.precip);
-        var precipationParsed = double.TryParse(precipationString, out var precipationDouble);
-        return new()
+        => new()
         {
-            Precipation = precipationParsed ? (int)(precipationDouble * 100) : 0,
-            Temperature = currentconditions.temp
+            ApplicableDate = currentconditions.datetime,
+            Temperature = currentconditions.temp.HasValue ? Math.Round(currentconditions.temp.Value, 2) : currentconditions.temp,
+            Conditions = Utilities.MapIcon(currentconditions.icon),
+            SunRise = currentconditions.sunrise,
+            SunSet = currentconditions.sunset
         };
-    }
-
-    public static WeatherData MapFromColumns(Columns forecast)
-    {
-        var precipationString = JsonConvert.SerializeObject(forecast.precip);
-        var precipationParsed = double.TryParse(precipationString, out var precipationDouble);
-        var temperature = forecast.temp.unit.ToLowerInvariant() == "celsius" ? 
-            forecast.temp.type : 
-            Utilities.FahrenheitToCelsius(forecast.temp.type);
-
-        return new()
-        {
-            Precipation = precipationParsed ? (int)(precipationDouble * 100) : 0,
-            Temperature = temperature
-        };
-    }
 }
