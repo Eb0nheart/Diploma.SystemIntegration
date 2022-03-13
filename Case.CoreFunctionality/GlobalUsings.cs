@@ -3,7 +3,5 @@ global using System.Collections.Generic;
 global using System.Linq;
 global using System.Text;
 global using System.Threading.Tasks;
-global using Microsoft.Extensions.Options;
-global using Quartz;
-global using Serilog;
 global using Case.CoreFunctionality.Interfaces;
+global using Case.CoreFunctionality.Models;

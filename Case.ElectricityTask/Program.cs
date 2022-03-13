@@ -1,11 +1,10 @@
+using Case.CoreFunctionality;
 using Case.ElectricityTask.ScheduledJobs;
-using Case.ElectricityTask.Services.Implementations;
 
-IHost host = Host.CreateDefaultBuilder(args)
+var host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((context, services) =>
     {
-        services.AddTransient<IElectricityPriceService, ElectricityPriceService>();
-        services.AddTransient<ISolarPanelEfficiencyService, SolarPanelEfficiencyService>();
+        services.AddElectricityFunctionality();
 
         services.AddQuartz(configurator =>
         {

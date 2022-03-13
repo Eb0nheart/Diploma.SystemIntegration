@@ -19,4 +19,12 @@
     <PackageReference Include="System.ServiceModel.Security" Version="4.8.*" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Case.CoreFunctionality\Case.CoreFunctionality.csproj" />
+  </ItemGroup>
+
 </Project>

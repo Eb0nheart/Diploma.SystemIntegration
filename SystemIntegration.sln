@@ -16,9 +16,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2.2-Expose-Web-Api", "2.2-E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Case.WeatherFilterApi", "Case.WeatherFitlerApi\Case.WeatherFilterApi.csproj", "{4A9C653C-D5FD-4B36-9A3E-D1FBB1B048B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Case.ElectricityTask", "Case.ElectricityTask\Case.ElectricityTask.csproj", "{260BE102-629D-4957-A444-AF08F7D15D17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Case.ElectricityTask", "Case.ElectricityTask\Case.ElectricityTask.csproj", "{260BE102-629D-4957-A444-AF08F7D15D17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Case.Composer", "Case.Composer\Case.Composer.csproj", "{411F96ED-7F83-48C6-8571-BA5B8F1774A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Case.Composer", "Case.Composer\Case.Composer.csproj", "{411F96ED-7F83-48C6-8571-BA5B8F1774A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Case.Dashboard", "Case.Dashboard\Case.Dashboard.csproj", "{CF4A6B1B-E14B-4690-A6A1-9F011A787DA6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Case.CoreFunctionality", "Case.CoreFunctionality\Case.CoreFunctionality.csproj", "{6C74D432-E77E-48CB-B705-7F17B6583FDD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,6 +50,14 @@ Global
 		{411F96ED-7F83-48C6-8571-BA5B8F1774A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{411F96ED-7F83-48C6-8571-BA5B8F1774A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{411F96ED-7F83-48C6-8571-BA5B8F1774A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF4A6B1B-E14B-4690-A6A1-9F011A787DA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF4A6B1B-E14B-4690-A6A1-9F011A787DA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF4A6B1B-E14B-4690-A6A1-9F011A787DA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF4A6B1B-E14B-4690-A6A1-9F011A787DA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C74D432-E77E-48CB-B705-7F17B6583FDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C74D432-E77E-48CB-B705-7F17B6583FDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C74D432-E77E-48CB-B705-7F17B6583FDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C74D432-E77E-48CB-B705-7F17B6583FDD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -18,4 +18,8 @@
     <PackageReference Include="Serilog.Extensions.Hosting" Version="4.2.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Case.CoreFunctionality\Case.CoreFunctionality.csproj" />
+  </ItemGroup>
 </Project>
