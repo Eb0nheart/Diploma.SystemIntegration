@@ -67,7 +67,7 @@ class TestJob : IJob
     public async Task Execute(IJobExecutionContext context)
     {
         var prices = await _priceService.GetNextDaysPricesAsync(context.CancellationToken);
-        var efficiency = await _efficiencyService.GetLastHoursEfficiencyAsync(context.CancellationToken);
+        var efficiency = await _efficiencyService.GetEfficiencyForTodayAsync(context.CancellationToken);
 
         Log.Information("Got data: {el} {@prices}", efficiency, prices);
     }

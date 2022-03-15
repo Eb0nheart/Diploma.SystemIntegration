@@ -5,72 +5,55 @@ namespace Case.CoreFunctionality.Implementations;
 public class SolarPanelEfficiencyService : ISolarPanelEfficiencyService
 {
     private const string baseUri = "ftp://inverter.westeurope.cloudapp.azure.com";
+    private const int headerRows = 6;
+    private const int fileEndRows = 2;
+    private const int energyColumn = 37;
+
+    private readonly WebClient client;
+
+    public SolarPanelEfficiencyService(WebClient client)
+    {
+        this.client = client;
+    }
 
     public async Task<Dictionary<TimeOnly, double>> GetEfficiencyForTodayAsync(CancellationToken token = default)
     {
         var files = await GetFilesToDownload();
-        var usages = new List<double>();
         var data = new Dictionary<TimeOnly, double>();
 
         var now = DateTime.Now;
-        files.ForEach(async file =>
+        foreach(var file in files)
         {
             var timestamp = file.Split("-").Last();
 
             var month = timestamp[2..4];
-            if (month != now.Month.ToString("00"))
-            {
-                return;
-            }
-
             var day = timestamp[4..6];
-            if (day != now.Day.ToString("00"))
+            if (month != now.Month.ToString("00") || day != now.Day.ToString("00"))
             {
-                return;
+                continue;
             }
 
             var usage = await GetUsage($"{baseUri}/{file}");
             var hour = int.Parse(timestamp[6..8]);
             data.Add(new TimeOnly(hour, 0), usage);
-        });
+        }
 
         return data;
     }
 
-    private async Task Savefile(string uri, string fileName)
-    {
-        using var reader = GetReader(uri, WebRequestMethods.Ftp.DownloadFile);
-        var text = await reader.ReadToEndAsync();
-        File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/" + fileName, text);
-    }
-
     private async Task<double> GetUsage(string uri)
     {
-        using var reader = GetReader(uri, WebRequestMethods.Ftp.DownloadFile);
-        var lineNumber = 1;
-        var lines = new List<string>();
+        var response = await client.DownloadStringTaskAsync(uri);
 
-        while (!reader.EndOfStream)
-        {
-            var line = await reader.ReadLineAsync();
+        var rows = response.Split("\n");
+        var dataSectionWithEnd = rows.Take(Range.StartAt(headerRows));
+        var dataSection = dataSectionWithEnd.Take(Range.EndAt(dataSectionWithEnd.Count() - fileEndRows));
 
-            if (lineNumber <= 6)
-            {
-                lineNumber++;
-                continue;
-            }
+        var firstLineColumns = dataSection.First().Split(';');
+        var lastLineColumns = dataSection.Last().Split(';');
 
-            if (line != "[wr_ende]")
-            {
-                lines.Add(line);
-            }
-        }
-
-        var firstLineColumns = lines.First().Split(';');
-        var lastLineColumns = lines.Last().Split(';');
-
-        var firstUsageString = firstLineColumns.ElementAt(37);
-        var lastUsageString = lastLineColumns.ElementAt(37);
+        var firstUsageString = firstLineColumns.ElementAt(energyColumn);
+        var lastUsageString = lastLineColumns.ElementAt(energyColumn);
 
         var firstUsage = double.Parse(firstUsageString);
         var lastUsage = double.Parse(lastUsageString);
@@ -78,7 +61,7 @@ public class SolarPanelEfficiencyService : ISolarPanelEfficiencyService
         return lastUsage - firstUsage;
     }
 
-    private async Task<List<string?>> GetFilesToDownload()
+    private async Task<List<string>> GetFilesToDownload()
     {
         using var reader = GetReader(baseUri, WebRequestMethods.Ftp.ListDirectory);
         var everything = await reader.ReadToEndAsync();
@@ -88,13 +71,9 @@ public class SolarPanelEfficiencyService : ISolarPanelEfficiencyService
 
     private StreamReader GetReader(string uri, string requestMethod)
     {
-#pragma warning disable SYSLIB0014 // Type or member is obsolete
         var request = WebRequest.Create(uri);
-#pragma warning restore SYSLIB0014 // Type or member is obsolete
-
         request.Method = requestMethod;
         request.Credentials = new NetworkCredential("studerende", "kmdp4gslmg46jhs");
-
         var response = request.GetResponse();
         return new StreamReader(response.GetResponseStream());
     }

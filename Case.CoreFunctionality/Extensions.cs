@@ -1,5 +1,6 @@
 ﻿using Case.CoreFunctionality.Implementations;
 using Microsoft.Extensions.DependencyInjection;
+using System.Net;
 
 namespace Case.CoreFunctionality;
 
@@ -9,6 +10,10 @@ public static class Extensions
     {
         services.AddTransient<IElectricityPriceService, ElectricityPriceService>();
         services.AddTransient<ISolarPanelEfficiencyService, SolarPanelEfficiencyService>();
+        services.AddSingleton(_ => new WebClient
+        {
+            Credentials = new NetworkCredential("studerende", "kmdp4gslmg46jhs")
+        });
 
         return services;
     }
