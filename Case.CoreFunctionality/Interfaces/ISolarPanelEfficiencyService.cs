@@ -2,5 +2,5 @@
 
 public interface ISolarPanelEfficiencyService
 {
-    Task<int> GetLastHoursEfficiencyAsync(CancellationToken token = default);
+    Task<Dictionary<TimeOnly, double>> GetEfficiencyForTodayAsync(CancellationToken token = default);
 }

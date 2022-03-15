@@ -13,11 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Case.WeatherFilterApi", "Ca
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Case.ElectricityTask", "Case.ElectricityTask\Case.ElectricityTask.csproj", "{260BE102-629D-4957-A444-AF08F7D15D17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Case.Dashboard", "Case.Dashboard\Case.Dashboard.csproj", "{CF4A6B1B-E14B-4690-A6A1-9F011A787DA6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Case.Dashboard", "Case.Dashboard\Case.Dashboard.csproj", "{CF4A6B1B-E14B-4690-A6A1-9F011A787DA6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Case.CoreFunctionality", "Case.CoreFunctionality\Case.CoreFunctionality.csproj", "{6C74D432-E77E-48CB-B705-7F17B6583FDD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Case.CoreFunctionality", "Case.CoreFunctionality\Case.CoreFunctionality.csproj", "{6C74D432-E77E-48CB-B705-7F17B6583FDD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Case.Tester", "Case.Tester\Case.Tester.csproj", "{802C2B82-8BBE-429E-8FFD-D89D1C3643F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Case.Tester", "Case.Tester\Case.Tester.csproj", "{802C2B82-8BBE-429E-8FFD-D89D1C3643F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
