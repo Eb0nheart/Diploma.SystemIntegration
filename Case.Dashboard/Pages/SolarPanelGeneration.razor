@@ -7,8 +7,9 @@
 @inject ISolarPanelEfficiencyService solarService;
 
 <h3>Solar Power</h3>
+<p>This is the amount of power which the solar panel generated for today.</p>
 
-@if (todaysGeneration == null || !todaysGeneration.Any())
+@if (data == null || !data.Any())
 {
     <div class="spinner-border" role="status"/>
 } 
@@ -26,7 +27,7 @@ else
             {
                 <tr>
                     <th>@GetTimeOnly(i)</th>
-                    <th>@todaysGeneration.GetValueOrDefault(GetTimeOnly(i))</th>
+                    <th>@data.GetValueOrDefault(GetTimeOnly(i))</th>
                 </tr>
             }
         </tbody>
@@ -34,12 +35,12 @@ else
 }
 
 @code {
-    private Dictionary<TimeOnly, double>? todaysGeneration;
+    private Dictionary<TimeOnly, double>? data;
 
     private TimeOnly GetTimeOnly(int hour) => new TimeOnly(hour, 0);
 
     protected override async Task OnInitializedAsync()
     {
-        todaysGeneration = await solarService.GetEfficiencyForTodayAsync();
+        data = data ?? await solarService.GetEfficiencyForTodayAsync();
     }
 }

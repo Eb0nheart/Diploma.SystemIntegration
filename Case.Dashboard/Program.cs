@@ -1,7 +1,4 @@
 using Case.CoreFunctionality;
-using Case.Dashboard.Data;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -9,7 +6,6 @@ var services = builder.Services;
 // Add services to the container.
 services.AddRazorPages();
 services.AddServerSideBlazor();
-services.AddSingleton<WeatherForecastService>();
 services.AddAllCaseFunctionality();
 
 var app = builder.Build();

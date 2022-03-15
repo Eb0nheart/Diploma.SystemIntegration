@@ -1,0 +1,72 @@
+﻿@page "/weather"
+
+<PageTitle>Weather forecast</PageTitle>
+
+@using Case.CoreFunctionality.Interfaces
+@using Case.CoreFunctionality.Models
+@inject IWeatherFilterService WeatherService
+
+<h3>Current Weather</h3>
+
+<p>This is the current weather in Kolding</p>
+
+@if (data == null)
+{
+    <div class="spinner-border"/>
+}
+else
+{
+    <div class="row">
+        <div class="col-2">
+            <b>Temperature:</b>
+        </div>
+        <div class="col-1">
+            @data.Temperature &deg;C
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-2">
+            <b>Conditions:</b>
+        </div>
+        <div class="col-1">
+            @data.Conditions
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-2">
+            <b>CloudCover:</b>
+        </div>
+        <div class="col-1">
+            @data.CloudCover%
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-2">
+            <b>SunRise:</b>
+        </div>
+        <div class="col-1">
+            @TimeOnly.FromDateTime(data.SunRise)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-2">
+            <b>SunSet:</b>
+        </div>
+        <div class="col-1">
+            @TimeOnly.FromDateTime(data.SunSet)
+        </div>
+    </div>
+}
+
+@code {
+    WeatherData data;
+
+    protected override async Task OnInitializedAsync()
+    {
+        data = data ?? await WeatherService.GetWeatherDataForKoldingAsync();
+    }
+}
