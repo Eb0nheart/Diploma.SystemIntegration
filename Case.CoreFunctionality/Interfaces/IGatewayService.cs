@@ -5,5 +5,5 @@ public interface IGatewayService
 {
     Dictionary<TimeOnly, double> GetSolarData(CancellationToken token = default);
 
-    WeatherData GetWeatherData(CancellationToken token = default);
+    CurrentWeather GetWeatherData(CancellationToken token = default);
 }

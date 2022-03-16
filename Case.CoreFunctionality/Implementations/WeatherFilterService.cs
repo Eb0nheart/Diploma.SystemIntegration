@@ -19,11 +19,28 @@ namespace Case.CoreFunctionality.Implementations
 
             ArgumentNullException.ThrowIfNull(forecast, nameof(forecast));
 
+            var forecasts = forecast.location.values;
             var currentConditions = forecast.location.currentConditions;
 
+            ArgumentNullException.ThrowIfNull(forecasts, nameof(forecasts));
             ArgumentNullException.ThrowIfNull(currentConditions, nameof(currentConditions));
 
-            return WeatherData.MapFromCurrentConditions(currentConditions);
+            var currentWeather = CurrentWeather.MapFromCurrentConditions(currentConditions);
+
+            var weatherForecasts = Enumerable.Empty<WeatherForecast>();
+
+            if (forecasts.Any())
+            {
+                var nextDaysForecasts = forecasts.Skip(1).Take(24);
+                weatherForecasts = nextDaysForecasts.Select(value => WeatherForecast.MapFromValue(value));
+                weatherForecasts.ToList().ForEach(f => Console.WriteLine($"{f.DateTime} - {f.Temperature} - {f.Conditions} - {f.CloudCover}"));
+            }
+
+            return new WeatherData
+            {
+                CurrentWeather = currentWeather,
+                WeatherForecasts = weatherForecasts
+            };
         }
     }
 }

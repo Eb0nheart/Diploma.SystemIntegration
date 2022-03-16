@@ -18,7 +18,7 @@ namespace Case.WeatherFitlerApi.Controllers
         [HttpGet(Name = "GetWeatherForecast")]
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
-        public async Task<ActionResult<WeatherData>> Get()
+        public async Task<ActionResult<CurrentWeather>> Get()
         {
             try
             {

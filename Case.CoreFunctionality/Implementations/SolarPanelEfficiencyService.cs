@@ -46,8 +46,8 @@ public class SolarPanelEfficiencyService : ISolarPanelEfficiencyService
         var response = await client.DownloadStringTaskAsync(uri);
 
         var rows = response.Split("\n");
-        var dataSectionWithEnd = rows.Take(Range.StartAt(headerRows));
-        var dataSection = dataSectionWithEnd.Take(Range.EndAt(dataSectionWithEnd.Count() - fileEndRows));
+        var dataSectionWithEnd = rows.Skip(headerRows);
+        var dataSection = dataSectionWithEnd.SkipLast(fileEndRows);
 
         var firstLineColumns = dataSection.First().Split(';');
         var lastLineColumns = dataSection.Last().Split(';');

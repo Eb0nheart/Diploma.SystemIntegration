@@ -6,9 +6,9 @@
 @using Case.CoreFunctionality.Models
 @inject IWeatherFilterService WeatherService
 
-<h3>Current Weather</h3>
+<h3>Weather</h3>
 
-<p>This is the current weather in Kolding</p>
+<p>This is the current weather & a forecast for the next 24 hours in Kolding.</p>
 
 @if (data == null)
 {
@@ -21,7 +21,7 @@ else
             <b>Temperature:</b>
         </div>
         <div class="col-1">
-            @data.Temperature &deg;C
+            @data.CurrentWeather.Temperature &deg;C
         </div>
     </div>
 
@@ -30,7 +30,7 @@ else
             <b>Conditions:</b>
         </div>
         <div class="col-1">
-            @data.Conditions
+            @data.CurrentWeather.Conditions
         </div>
     </div>
 
@@ -39,7 +39,7 @@ else
             <b>CloudCover:</b>
         </div>
         <div class="col-1">
-            @data.CloudCover%
+            @data.CurrentWeather.CloudCover%
         </div>
     </div>
 
@@ -48,7 +48,7 @@ else
             <b>SunRise:</b>
         </div>
         <div class="col-1">
-            @TimeOnly.FromDateTime(data.SunRise)
+            @TimeOnly.FromDateTime(data.CurrentWeather.SunRise)
         </div>
     </div>
 
@@ -57,9 +57,33 @@ else
             <b>SunSet:</b>
         </div>
         <div class="col-1">
-            @TimeOnly.FromDateTime(data.SunSet)
+            @TimeOnly.FromDateTime(data.CurrentWeather.SunSet)
         </div>
     </div>
+
+    <table class="table table-sm mt-2">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Time of day</th>
+                <th>Conditions</th>
+                <th>Cloud Cover (%)</th>
+                <th>Temperature &deg;C</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var forecast in data.WeatherForecasts)
+            {
+                <tr>
+                    <th>@DateOnly.FromDateTime(forecast.DateTime)</th>
+                    <th>@TimeOnly.FromDateTime(forecast.DateTime)</th>
+                    <th>@forecast.Conditions</th>
+                    <th>@forecast.CloudCover</th>
+                    <th>@forecast.Temperature</th>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
 
 @code {
@@ -67,6 +91,6 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        data = data ?? await WeatherService.GetWeatherDataForKoldingAsync();
+        data = await WeatherService.GetWeatherDataForKoldingAsync();
     }
 }

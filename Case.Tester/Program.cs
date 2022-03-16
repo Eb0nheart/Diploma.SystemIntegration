@@ -10,8 +10,8 @@ services.AddAllCaseFunctionality();
 
 var serviceProvider = services.BuildServiceProvider();
 
-var ftpstuff = serviceProvider.GetService<ISolarPanelEfficiencyService>();
+var testee = serviceProvider.GetService<IWeatherFilterService>();
 
-var data = await ftpstuff.GetEfficiencyForTodayAsync();
+var data = await testee.GetWeatherDataForKoldingAsync();
 
 Console.WriteLine("Hello, World!");
