@@ -1,11 +1,12 @@
 # Diploma.SystemIntegration
-A repo to contain all my minor projects for school assignments related to the System Integration course
 
+A repo to contain all my minor projects for school assignments related to the System Integration course
 
 ## Get Going
 
-1. WeatherFilterApi
+Case del 4 aflevering:
 
-Nothing except Docker Desktop or IIS Express is required to run this.
+Efter du har �bnet solution og bygget projektet, s� v�lg Case.Dashboard som startup project og k�r den. Voila!
 
-Docker can be a bit finicky running swagger, so if you wanna use swagger, then i would suggest running it through IIS Express.
+![](del4strom.png)
+![](del4vejr.png)
