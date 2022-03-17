@@ -4,7 +4,7 @@
 
 @using Case.CoreFunctionality.Interfaces;
 @using Case.CoreFunctionality.Models;
-@inject ISolarPanelEfficiencyService solarService;
+@inject IGatewayService _gatewayService;
 
 <h3>Solar Power</h3>
 <p>This is the amount of power which the solar panel generated for today.</p>
@@ -41,6 +41,6 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        data = data ?? await solarService.GetEfficiencyForTodayAsync();
+        data = await _gatewayService.GetSolarDataAsync();
     }
 }

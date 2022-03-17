@@ -4,63 +4,18 @@
 
 @using Case.CoreFunctionality.Interfaces
 @using Case.CoreFunctionality.Models
-@inject IWeatherFilterService WeatherService
+@inject IGatewayService _gatewayService
 
-<h3>Weather</h3>
+<h3>Weather forecast</h3>
 
-<p>This is the current weather & a forecast for the next 24 hours in Kolding.</p>
+<p>This is the forecast for the next 24 hours in Kolding.</p>
 
-@if (data == null)
+@if (data == null || !data.Any())
 {
     <div class="spinner-border"/>
 }
 else
 {
-    <div class="row">
-        <div class="col-2">
-            <b>Temperature:</b>
-        </div>
-        <div class="col-1">
-            @data.CurrentWeather.Temperature &deg;C
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-2">
-            <b>Conditions:</b>
-        </div>
-        <div class="col-1">
-            @data.CurrentWeather.Conditions
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-2">
-            <b>CloudCover:</b>
-        </div>
-        <div class="col-1">
-            @data.CurrentWeather.CloudCover%
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-2">
-            <b>SunRise:</b>
-        </div>
-        <div class="col-1">
-            @TimeOnly.FromDateTime(data.CurrentWeather.SunRise)
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-2">
-            <b>SunSet:</b>
-        </div>
-        <div class="col-1">
-            @TimeOnly.FromDateTime(data.CurrentWeather.SunSet)
-        </div>
-    </div>
-
     <table class="table table-sm mt-2">
         <thead>
             <tr>
@@ -72,7 +27,7 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach(var forecast in data.WeatherForecasts)
+            @foreach(var forecast in data)
             {
                 <tr>
                     <th>@DateOnly.FromDateTime(forecast.DateTime)</th>
@@ -87,10 +42,10 @@ else
 }
 
 @code {
-    WeatherData data;
+    IEnumerable<WeatherForecast> data;
 
     protected override async Task OnInitializedAsync()
     {
-        data = await WeatherService.GetWeatherDataForKoldingAsync();
+        data = await _gatewayService.GetWeatherDataAsync();
     }
 }

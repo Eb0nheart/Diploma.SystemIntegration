@@ -11,7 +11,7 @@ namespace Case.CoreFunctionality.Implementations
             _client = new ForecastServiceClient();
         }
 
-        public async Task<WeatherData> GetWeatherDataForKoldingAsync()
+        public async Task<WeatherData> GetWeatherDataForKoldingAsync(CancellationToken token = default)
         {
             var response = await _client.GetForecastAsync("55.495972,9.473052", "Jeger1studerende");
             
@@ -31,7 +31,7 @@ namespace Case.CoreFunctionality.Implementations
 
             if (forecasts.Any())
             {
-                var nextDaysForecasts = forecasts.Skip(1).Take(24);
+                var nextDaysForecasts = forecasts.Take(25);
                 weatherForecasts = nextDaysForecasts.Select(value => WeatherForecast.MapFromValue(value));
                 weatherForecasts.ToList().ForEach(f => Console.WriteLine($"{f.DateTime} - {f.Temperature} - {f.Conditions} - {f.CloudCover}"));
             }
@@ -42,5 +42,8 @@ namespace Case.CoreFunctionality.Implementations
                 WeatherForecasts = weatherForecasts
             };
         }
+
+        public async Task<IEnumerable<WeatherForecast>> GetWeatherForecastAsync(CancellationToken token = default)
+            => (await GetWeatherDataForKoldingAsync(token)).WeatherForecasts;
     }
 }

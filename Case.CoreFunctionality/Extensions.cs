@@ -25,6 +25,8 @@ public static class Extensions
     {
         services.AddElectricityFunctionality();
         services.AddWeatherFunctionality();
+        services.AddMemoryCache();
+        services.AddSingleton<IGatewayService, GatewayService>();
 
         return services;
     }

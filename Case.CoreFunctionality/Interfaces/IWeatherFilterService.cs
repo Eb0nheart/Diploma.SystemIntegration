@@ -2,5 +2,7 @@
 
 public interface IWeatherFilterService
 {
-    public Task<WeatherData> GetWeatherDataForKoldingAsync();
+    Task<WeatherData> GetWeatherDataForKoldingAsync(CancellationToken token = default);
+
+    Task<IEnumerable<WeatherForecast>> GetWeatherForecastAsync(CancellationToken token = default);
 }
