@@ -21,6 +21,12 @@ public static class Extensions
     public static IServiceCollection AddWeatherFunctionality(this IServiceCollection services)
         => services.AddSingleton<IWeatherFilterService, WeatherFilterService>();
 
+    public static IServiceCollection AddRoomTemperatureFunctionality(this IServiceCollection services)
+    {
+        services.AddSingleton<IRepository<RoomTemperature>, RoomTemperatureRepository>();
+        return services;
+    }
+
     public static IServiceCollection AddAllCaseFunctionality(this IServiceCollection services)
     {
         services.AddElectricityFunctionality();
