@@ -8,7 +8,7 @@ public class RoomTemperature
     public DateTime Date { get; set; }
 
     [Column("tidspunkt")]
-    public DateTime Time { get; set; }
+    public TimeSpan Time { get; set; }
 
     [Column("grader")]
     public double Temperature { get; set; }

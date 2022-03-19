@@ -15,7 +15,8 @@ public class RoomTemperatureRepository : IRepository<RoomTemperature>
 
     public async Task<IEnumerable<RoomTemperature>> SelectAllAsync(CancellationToken cancellationToken = default)
     {
-        var data = await _connection.QueryAsync<RoomTemperature>(SQL, cancellationToken);  
-        return data;
+        var data = await _connection.QueryAsync<RoomTemperature>(SQL, cancellationToken);
+        var todaysTemps = data.Where(temperature => DateOnly.FromDateTime(temperature.Date) == DateOnly.FromDateTime(DateTime.Now));
+        return todaysTemps;
     }
 }

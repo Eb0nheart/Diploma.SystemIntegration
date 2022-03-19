@@ -1,0 +1,44 @@
+﻿@page "/OfficeTemperature"
+@using Case.CoreFunctionality.Interfaces
+@using Case.CoreFunctionality.Models
+@inject IRepository<RoomTemperature> _repository;
+
+<h3>Office Temperature</h3>
+
+<p>This shows the room temperature of the office.</p>
+
+@if(data == null || !data.Any())
+{
+    <div class="spinner-border" role="status"/>
+}
+else
+{
+    <table class="table table-sm" style="width: 50%">
+        <thead>
+            <tr>
+                <th>Dato</th>
+                <th>Tidspunkt</th>
+                <th>Temperatur</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var temperature in data)
+            {
+                <tr>
+                    <th>@DateOnly.FromDateTime(temperature.Date)</th>
+                    <th>@temperature.Time</th>
+                    <th>@temperature.Temperature</th>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    IEnumerable<RoomTemperature> data;
+
+    protected override async Task OnInitializedAsync()
+    {
+        data = await _repository.SelectAllAsync();
+    }
+}
