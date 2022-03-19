@@ -22,6 +22,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Case.CoreFunctionality", "C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Case.Tester", "Case.Tester\Case.Tester.csproj", "{802C2B82-8BBE-429E-8FFD-D89D1C3643F6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Case.OfficeTemperatureTask", "Case.OfficeTemperatureTask\Case.OfficeTemperatureTask.csproj", "{93570708-B7DB-4B78-8923-D7B45BFBE34E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +50,10 @@ Global
 		{802C2B82-8BBE-429E-8FFD-D89D1C3643F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{802C2B82-8BBE-429E-8FFD-D89D1C3643F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{802C2B82-8BBE-429E-8FFD-D89D1C3643F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93570708-B7DB-4B78-8923-D7B45BFBE34E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93570708-B7DB-4B78-8923-D7B45BFBE34E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93570708-B7DB-4B78-8923-D7B45BFBE34E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93570708-B7DB-4B78-8923-D7B45BFBE34E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
