@@ -13,6 +13,6 @@ var serviceProvider = services.BuildServiceProvider();
 
 var testee = serviceProvider.GetService<IRepository<RoomTemperature>>();
 
-var data = await testee.SelectAllAsync();
+var data = await testee.GetLast24HoursAsync();
 
 Console.WriteLine("Hello, World!");

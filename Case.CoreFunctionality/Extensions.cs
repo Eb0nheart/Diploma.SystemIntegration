@@ -25,10 +25,10 @@ public static class Extensions
 
     public static IServiceCollection AddRoomTemperatureFunctionality(this IServiceCollection services)
     {
-        SqlMapper.SetTypeMap(typeof(RoomTemperature),
-            new CustomPropertyTypeMap(typeof(RoomTemperature), (type, columnName) =>
-                type.GetProperties().FirstOrDefault(prop =>
-                    prop.GetCustomAttributes(false).OfType<ColumnAttribute>().Any(attr => attr.Name == columnName))));
+        //SqlMapper.SetTypeMap(typeof(RoomTemperature),
+        //    new CustomPropertyTypeMap(typeof(RoomTemperature), (type, columnName) =>
+        //        type.GetProperties().FirstOrDefault(prop =>
+        //            prop.GetCustomAttributes(false).OfType<ColumnAttribute>().Any(attr => attr.Name == columnName))));
         services.AddSingleton<IRepository<RoomTemperature>, RoomTemperatureRepository>();
         return services;
     }

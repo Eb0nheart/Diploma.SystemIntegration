@@ -2,5 +2,5 @@
 
 public interface IRepository<T>
 {
-    Task<IEnumerable<T>> SelectAllAsync(CancellationToken cancellationToken = default);
+    Task<IEnumerable<T>> GetLast24HoursAsync(CancellationToken cancellationToken = default);
 }

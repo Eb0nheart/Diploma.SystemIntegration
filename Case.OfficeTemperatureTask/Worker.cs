@@ -22,8 +22,8 @@ namespace Case.OfficeTemperatureTask
 
         private async Task GetLatestTemperature()
         {
-            var temperatures = await _repository.SelectAllAsync();
-            var todaysTemperatures = temperatures.Where(temperature => temperature.Date == DateTime.Now.Date);
+            var temperatures = await _repository.GetLast24HoursAsync();
+            var todaysTemperatures = temperatures.Where(temperature => temperature.Time > DateTime.Now.AddDays(-1));
 
             // TODO: Do something with temps.... put on queue, cache, etc?? 
         }
