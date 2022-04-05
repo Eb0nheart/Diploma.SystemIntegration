@@ -1,6 +1,8 @@
 using Case.CoreFunctionality;
 using Case.ElectricityTask.ScheduledJobs;
+using Confluent.Kafka;
 
+IConfiguration config;
 var host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((context, services) =>
     {

@@ -31,22 +31,12 @@ public class GatewayService : IGatewayService
     }
 
     public async Task<IEnumerable<RoomTemperature>> GetRoomTemperatureAsync(CancellationToken token = default)
-        => await GetData(OfficeDataKey, () => _repository.GetLast24HoursAsync(token));
+        => await _cache.GetData(OfficeDataKey, _cacheEntryOptions, () => _repository.GetLast24HoursAsync(token));
 
     public async Task<Dictionary<TimeOnly, double>> GetSolarDataAsync(CancellationToken token = default)
-        => await GetData(SolarDataKey, () => _solarService.GetEfficiencyForTodayAsync(token));
+        => await _cache.GetData(SolarDataKey, _cacheEntryOptions, () => _solarService.GetEfficiencyForTodayAsync(token));
 
     public async Task<IEnumerable<WeatherForecast>> GetWeatherDataAsync(CancellationToken token = default)
-        => await GetData(WeatherDataKey, () => _weatherService.GetWeatherForecastAsync(token));
+        => await _cache.GetData(WeatherDataKey, _cacheEntryOptions, () => _weatherService.GetWeatherForecastAsync(token));
 
-    private async Task<T> GetData<T>(string cacheKey, Func<Task<T>> getDataFromProvider)
-    {
-        if (!_cache.TryGetValue(cacheKey, out T data))
-        {
-            var newData = await getDataFromProvider();
-            _cache.Set(cacheKey, newData, _cacheEntryOptions);
-        }
-
-        return data;
-    }
 }

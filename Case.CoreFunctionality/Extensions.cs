@@ -1,5 +1,6 @@
 ﻿using Case.CoreFunctionality.Implementations;
 using Dapper;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Net;
@@ -11,6 +12,7 @@ public static class Extensions
     public static IServiceCollection AddElectricityFunctionality(this IServiceCollection services)
     {
         services.AddTransient<IElectricityPriceService, ElectricityPriceService>();
+        services.AddSingleton(_ => new HttpClient());
         services.AddTransient<ISolarPanelEfficiencyService, SolarPanelEfficiencyService>();
         services.AddSingleton(_ => new WebClient
         {
@@ -42,5 +44,16 @@ public static class Extensions
         services.AddSingleton<IGatewayService, GatewayService>();
 
         return services;
+    }
+
+    public static async Task<T> GetData<T>(this IMemoryCache cache, string cacheKey, MemoryCacheEntryOptions cacheEntryOptions, Func<Task<T>> getDataFromProvider)
+    {
+        if (!cache.TryGetValue(cacheKey, out T data))
+        {
+            data = await getDataFromProvider();
+            cache.Set(cacheKey, data, cacheEntryOptions);
+        }
+
+        return data;
     }
 }
