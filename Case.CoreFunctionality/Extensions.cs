@@ -11,7 +11,7 @@ public static class Extensions
 {
     public static IServiceCollection AddElectricityFunctionality(this IServiceCollection services)
     {
-        services.AddTransient<IElectricityPriceService, ElectricityPriceService>();
+        services.AddTransient(_ => new DateTimeSerializer());
         services.AddSingleton(_ => new HttpClient());
         services.AddTransient<ISolarPanelEfficiencyService, SolarPanelEfficiencyService>();
         services.AddSingleton(_ => new WebClient

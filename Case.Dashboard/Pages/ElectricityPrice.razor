@@ -1,0 +1,90 @@
+﻿@page "/EPrice"
+@using Case.CoreFunctionality.Implementations
+@using Confluent.Kafka;
+@inject DateTimeSerializer _serializer;
+
+<h3>ElectricityPrice</h3>
+<p>On this page you can get the price for a selected date & time.</p>
+
+<div class="input-group" style="width: 20%">
+    <div class="input-group-prepend">
+        <span class="input-group-text">Price:</span>
+    </div>
+    <input class="form-control bg-white" type="text" readonly value="@priceForTime kr/KwH"/> <br/>
+</div>
+
+<div class="input-group" style="width: 20%">
+    <div class="input-group-prepend">
+        <span class="input-group-text">Date:</span>
+    </div>
+    <input class="form-control" type="date" @oninput="@((e) => {DateForPrice = (string)e.Value;})"/>
+</div>
+
+<div class="input-group" style="width: 20%">
+    <div class="input-group-prepend">
+        <span class="input-group-text">Time:</span>
+    </div>
+    <input class="form-control" type="time" @oninput="@((e) => {TimeForPrice = (string)e.Value;})"/> <br/>
+</div>
+<small>It doesnt matter what minute you pick, the backend will only use the hour you select.</small> <br />
+
+@if (isLoading)
+{
+    <div class="spinner-border mt-4" role="status"/>
+}
+else
+{
+    <button class="btn btn-success mt-4" @onclick="@(async () => await RequestPrice())">Request Price</button> 
+}
+
+@code {
+    string DateForPrice;
+    string TimeForPrice;
+    IProducer<Null, DateTime> _producer;
+    IConsumer<Null, double> _consumer;
+    double priceForTime;
+    bool isLoading = false;
+
+    protected override Task OnInitializedAsync()
+    {
+        var config = new List<KeyValuePair<string, string>>
+        {
+            new KeyValuePair<string, string>("auto.offset.reset", "latest"),
+            new KeyValuePair<string, string>("group.id", "price-receivers"),
+            new KeyValuePair<string, string>("bootstrap.servers", "localhost:9092")
+        };
+        var producerBuilder = new ProducerBuilder<Null, DateTime>(config.AsEnumerable());
+        producerBuilder.SetValueSerializer(_serializer);
+        _producer = producerBuilder.Build();
+        var consumerBuilder = new ConsumerBuilder<Null, double>(config.AsEnumerable());
+        _consumer = consumerBuilder.Build();
+        _consumer.Subscribe("receive-price");
+        _ = Task.Run(async () =>
+        {
+            while (true)
+            {
+                var result = _consumer.Consume();
+                priceForTime = result.Message.Value;
+                isLoading = false;
+                await InvokeAsync(() => StateHasChanged());
+            }
+        });
+
+        return base.OnInitializedAsync();
+    }
+
+    private Message<Null, DateTime> GetMessage(string dateTime)
+    {
+        return new Message<Null, DateTime>()
+        {
+            Value = DateTime.Parse(dateTime)
+        };
+    }
+
+    private async Task RequestPrice()
+    {
+        isLoading = true;
+        // This is done because kafka sucks apparently, and the first reply is not received very well. 
+        await _producer.ProduceAsync("get-price", GetMessage($"{DateForPrice} {TimeForPrice}"));
+    }
+}

@@ -1,4 +1,5 @@
 using Case.CoreFunctionality;
+using Case.CoreFunctionality.Implementations;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;

@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 		del4strom.png = del4strom.png
 		del4vejr.png = del4vejr.png
+		del6elpris.png = del6elpris.png
 		README.md = README.md
 	EndProjectSection
 EndProject
@@ -22,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Case.CoreFunctionality", "C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Case.Tester", "Case.Tester\Case.Tester.csproj", "{802C2B82-8BBE-429E-8FFD-D89D1C3643F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Case.OfficeTemperatureTask", "Case.OfficeTemperatureTask\Case.OfficeTemperatureTask.csproj", "{93570708-B7DB-4B78-8923-D7B45BFBE34E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Case.OfficeTemperatureTask", "Case.OfficeTemperatureTask\Case.OfficeTemperatureTask.csproj", "{93570708-B7DB-4B78-8923-D7B45BFBE34E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
