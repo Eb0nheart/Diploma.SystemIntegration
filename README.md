@@ -18,6 +18,8 @@ så hvis vejr/strøm siden står og loader, så gå til home og tilbage, så bur
 
 **PREREQUISITE:** Du skal have Kafke kørende på port 9092 for at programmet virker! Hvis du ikke har det manuelt installeret og sat op på denne port, kan du istedet installere
 Docker Desktop, og derefter køre kommandoen: docker compose up -d i roden af ElectricityTask projektet (der hvor docker-compose filen ligger).
+Derudover er det vigtigt at du laver 2 topics/køer, en der hedder "get-price" og en der hedder "receive-price". Koden er ikke sat op til selv at lave dem, 
+og programmet dør højest sandsynligt hvis de ikke er tilstede!
 
 Sådan kører du programmet:
 
