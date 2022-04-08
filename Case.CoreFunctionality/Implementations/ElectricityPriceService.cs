@@ -1,11 +1,10 @@
 ﻿using Confluent.Kafka;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
 using System.Net.Http.Json;
 
 namespace Case.CoreFunctionality.Implementations;
-public class ElectricityPriceService : BackgroundService, IElectricityPriceService
+public class ElectricityPriceService : IElectricityPriceService
 {
     private const string GET_PRICE_TOPIC = "get-price";
     private const string RECEIVE_PRICE_TOPIC = "receive-price";
@@ -31,11 +30,6 @@ public class ElectricityPriceService : BackgroundService, IElectricityPriceServi
         var consumerBuilder = new ConsumerBuilder<Null, DateTime>(config.AsEnumerable());
         consumerBuilder.SetValueDeserializer(serializer);
         _consumer = consumerBuilder.Build();
-    }
-
-    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
-    {
-        await ListenForPriceRequests(stoppingToken);
     }
 
     public async Task ListenForPriceRequests(CancellationToken token)
@@ -81,5 +75,4 @@ public class ElectricityPriceService : BackgroundService, IElectricityPriceServi
 
         return await _cache.GetData(PRICE_KEY, cacheOptions, getDataFromProvider);
     }
-
 }

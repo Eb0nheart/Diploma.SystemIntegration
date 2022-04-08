@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Case.WeatherFilterApi", "Case.WeatherFitlerApi\Case.WeatherFilterApi.csproj", "{4A9C653C-D5FD-4B36-9A3E-D1FBB1B048B6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Case.ElectricityTask", "Case.ElectricityTask\Case.ElectricityTask.csproj", "{260BE102-629D-4957-A444-AF08F7D15D17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Case.ElectricityService", "Case.ElectricityTask\Case.ElectricityService.csproj", "{260BE102-629D-4957-A444-AF08F7D15D17}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Case.Dashboard", "Case.Dashboard\Case.Dashboard.csproj", "{CF4A6B1B-E14B-4690-A6A1-9F011A787DA6}"
 EndProject

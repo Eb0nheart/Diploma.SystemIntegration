@@ -1,15 +1,11 @@
 using Case.CoreFunctionality;
-using Case.CoreFunctionality.Implementations;
-using Case.ElectricityTask;
-using Case.ElectricityTask.ScheduledJobs;
-using Confluent.Kafka;
+using Case.ElectricityService;
 
-IConfiguration config;
 var host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((context, services) =>
     {
         services.AddAllCaseFunctionality();
-        services.AddHostedService<ElectricityPriceService>();
+        services.AddHostedService<WorkerService>();
         //services.AddQuartz(configurator =>
         //{
         //    configurator.UseMicrosoftDependencyInjectionJobFactory();
@@ -18,18 +14,6 @@ var host = Host.CreateDefaultBuilder(args)
         //    configurator.ScheduleJob<SolarPanelEfficiencyJob>(trigger =>
         //    {
         //        var startTime = new DateTime(now.Year, now.Month, now.Day, now.Hour+1, 2, 0);
-        //        trigger
-        //            .StartAt(startTime)
-        //            .WithSimpleSchedule(schedule =>
-        //            {
-        //                schedule.WithIntervalInHours(1);
-        //                schedule.RepeatForever();
-        //            });
-        //    });
-
-        //    configurator.ScheduleJob<ElectricityPriceJob>(trigger =>
-        //    {
-        //        var startTime = new DateTime(now.Year, now.Month, now.Day, 17, 2, 0);
         //        trigger
         //            .StartAt(startTime)
         //            .WithSimpleSchedule(schedule =>

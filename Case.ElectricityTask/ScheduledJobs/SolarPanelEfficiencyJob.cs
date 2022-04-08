@@ -1,5 +1,4 @@
-﻿
-namespace Case.ElectricityTask.ScheduledJobs;
+﻿namespace Case.ElectricityService.ScheduledJobs;
 
 public class SolarPanelEfficiencyJob : IJob
 {
