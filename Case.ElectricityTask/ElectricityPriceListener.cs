@@ -1,10 +1,10 @@
 ﻿namespace Case.ElectricityService;
 
-public class WorkerService : BackgroundService
+public class ElectricityPriceListener : BackgroundService
 {
     private readonly IElectricityPriceService _priceService;
 
-    public WorkerService(IElectricityPriceService priceService)
+    public ElectricityPriceListener(IElectricityPriceService priceService)
     {
         _priceService = priceService;
     }

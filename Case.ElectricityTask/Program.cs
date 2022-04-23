@@ -1,11 +1,14 @@
 using Case.CoreFunctionality;
 using Case.ElectricityService;
+using Confluent.Kafka;
 
 var host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((context, services) =>
     {
         services.AddAllCaseFunctionality();
-        services.AddHostedService<WorkerService>();
+        services.AddHostedService<SolarPanelEfficiencyProducer>();
+        services.AddTransient<ISerializer<TimeOnly>, TimeOnlySerializer>();
+         services.AddHostedService<ElectricityPriceListener>();
         //services.AddQuartz(configurator =>
         //{
         //    configurator.UseMicrosoftDependencyInjectionJobFactory();
